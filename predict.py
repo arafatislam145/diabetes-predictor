@@ -1,19 +1,37 @@
 import joblib
-import numpy as np
 
-# Load trained model
+# মডেল লোড করো
 model = joblib.load('model/model.pkl')
 
-# Input data: 8 features (must be in correct order)
-# Format: [Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]
+# ইউজার ইনপুট নিও (সবগুলো ইনপুট float টাইপে কনভার্ট করো)
+print("🔢 Please enter the following values:")
 
-sample = np.array([[2, 120, 70, 20, 79, 25.0, 0.5, 30]])  # You can change these values
+pregnancies = float(input("Number of Pregnancies: "))
+glucose = float(input("Glucose Level: "))
+blood_pressure = float(input("Blood Pressure: "))
+skin_thickness = float(input("Skin Thickness: "))
+insulin = float(input("Insulin Level: "))
+bmi = float(input("BMI: "))
+dpf = float(input("Diabetes Pedigree Function: "))
+age = float(input("Age: "))
 
-# Predict
-prediction = model.predict(sample)[0]
+# ইনপুটকে লিস্টে কনভার্ট করো
+features = [[
+    pregnancies,
+    glucose,
+    blood_pressure,
+    skin_thickness,
+    insulin,
+    bmi,
+    dpf,
+    age
+]]
 
-# Output result
-if prediction == 1:
+# প্রেডিকশন
+prediction = model.predict(features)
+
+# রেজাল্ট দেখাও
+if prediction[0] == 1:
     print("🔴 The person is likely to have diabetes.")
 else:
     print("🟢 The person is not likely to have diabetes.")
